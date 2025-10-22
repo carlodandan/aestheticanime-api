@@ -97,7 +97,7 @@ Host your own instance of anime-api on vercel
 
 Host your own instance of anime-api on Render.
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/itzzzme/anime-api)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/carlodandan/anime-api)
 
 > # Documentation
 
