@@ -70,7 +70,7 @@ $ cd anime-api
 $ npm install
 ```
 
-2. Refer the [.env.example](https://github.com/carlodandan/anime-api/blob/main/.env.example) file to setup `.env` file
+2. Refer the [wrangler.toml](https://github.com/carlodandan/anime-api/blob/main/wrangler.toml) file to setup your own `environment`. 
 
 ```bash
 # Origins you want to allow

@@ -5,3 +5,8 @@ compatibility_flags = ["nodejs_compat"]
 
 [assets]
 directory = "./public"
+
+# Switced to wrangler configuration in setting up ALLOWED_ORIGINS and PORT
+[vars]
+ALLOWED_ORIGINS = "<https://site1.com>,<https://site2.com>,..."
+PORT = "4444"
