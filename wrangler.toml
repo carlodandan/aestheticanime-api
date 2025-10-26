@@ -1,4 +1,4 @@
-name = "aesthetic-anime-api"
+name = "anime-api"
 main = "src/worker.js"
 compatibility_date = "2025-06-05"
 compatibility_flags = ["nodejs_compat"]

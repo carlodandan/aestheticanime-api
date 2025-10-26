@@ -65,8 +65,8 @@ Make sure you have node installed on your device
 1. Run the following code to clone the repository and install all required dependencies
 
 ```bash
-$ git clone https://github.com/carlodandan/aesthetic-anime-api.git
-$ cd aesthetic-anime-api
+$ git clone https://github.com/carlodandan/anime-api.git
+$ cd anime-api
 $ npm install
 ```
 
@@ -90,7 +90,7 @@ $ npm start #or npm run devStart
 
 Host your own instance of Aesthetic Anime API.
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/carlodandan/aesthetic-anime-api)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/carlodandan/anime-api)
 
 > # Documentation
 
