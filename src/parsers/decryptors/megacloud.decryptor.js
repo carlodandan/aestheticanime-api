@@ -3,7 +3,6 @@
 import util from "util";
 import pixels from "image-pixels";
 import cryptoJs from "crypto-js";
-import axios from "axios";
 const user_agent =
   "Mozilla/5.0 (X11; Linux x86_64; rv:133.0) Gecko/20100101 Firefox/133.0";
 import { webcrypto } from "crypto";
@@ -762,7 +761,7 @@ const decryptSource = async (embed_url) => {
       browser_version;
   }
 
-  let { data: resp } = await axios.get(getSourcesUrl, {
+  let resp = await fetch(getSourcesUrl, {
     headers: {
       "User-Agent": user_agent,
       Referrer: embed_url + "&autoPlay=1&oa=0&asi=1",
@@ -777,23 +776,25 @@ const decryptSource = async (embed_url) => {
       "Sec-Fetch-Mode": "cors",
     },
   });
+  let respData = await resp.json();
 
   let Q3 = fake_window.localStorage.kversion;
   let Q1 = z(Q3);
   Q5 = new Uint8Array(Q5);
-  let Q8 = resp.t != 0 ? (i(Q5, Q1), Q5) : ((Q8 = resp.k), i(Q8, Q1), Q8);
+  let Q8 = respData.t != 0 ? (i(Q5, Q1), Q5) : ((Q8 = respData.k), i(Q8, Q1), Q8);
   let str = btoa(String.fromCharCode.apply(null, new Uint8Array(Q8)));
-  var decryptedSource = M(resp.sources, str);
-  resp.sources = decryptedSource;
-  return resp;
+  var decryptedSource = M(respData.sources, str);
+  respData.sources = decryptedSource;
+  return respData;
 };
 
 export default async function decryptMegacloud(id, name, type) {
   try {
-    const { data: sourcesData } = await axios.get(
+    const sourcesResponse = await fetch(
       // `https://${v1_base_url}/ajax/v2/episode/sources?id=${id}`
       `https://${v4_base_url}/ajax/episode/sources?id=${id}`
     );
+    const sourcesData = await sourcesResponse.json();
     const source = await decryptSource(sourcesData.link);
     return {
       id: id,

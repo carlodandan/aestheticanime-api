@@ -1,12 +1,12 @@
-import axios from "axios";
 import * as cheerio from "cheerio";
 import { v1_base_url } from "../utils/base_v1.js";
 
 export async function fetchServerData_v1(id) {
   try {
-    const { data } = await axios.get(
+    const response = await fetch(
       `https://${v1_base_url}/ajax/v2/episode/servers?episodeId=${id}`
     );
+    const data = await response.json();
     const $ = cheerio.load(data.html);
 
     const serverData = $("div.ps_-block > div.ps__-list > div.server-item")

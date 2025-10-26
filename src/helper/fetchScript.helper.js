@@ -1,8 +1,6 @@
-import axios from "axios";
-
 async function fetchScript(url) {
-  const response = await axios.get(url);
-  return response.data;
+  const response = await fetch(url);
+  return await response.text();
 }
 
 export default fetchScript;

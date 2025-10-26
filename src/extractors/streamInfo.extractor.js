@@ -1,4 +1,3 @@
-import axios from "axios";
 import * as cheerio from "cheerio";
 import { v1_base_url } from "../utils/base_v1.js";
 // import decryptMegacloud from "../parsers/decryptors/megacloud.decryptor.js";
@@ -7,10 +6,11 @@ import { decryptSources_v1 } from "../parsers/decryptors/decrypt_v1.decryptor.js
 
 export async function extractServers(id) {
   try {
-    const resp = await axios.get(
+    const resp = await fetch(
       `https://${v1_base_url}/ajax/v2/episode/servers?episodeId=${id}`
     );
-    const $ = cheerio.load(resp.data.html);
+    const data = await resp.json();
+    const $ = cheerio.load(data.html);
     const serverData = [];
     $(".server-item").each((index, element) => {
       const data_id = $(element).attr("data-id");

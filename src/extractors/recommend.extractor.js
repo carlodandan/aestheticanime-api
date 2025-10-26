@@ -2,6 +2,7 @@ export default async function extractRecommendedData($) {
   const recommendedElements = $(
     "#main-content .block_area_category .tab-content .block_area-content .film_list-wrap .flw-item"
   );
+
   return await Promise.all(
     recommendedElements
       .map(async (index, element) => {
@@ -20,6 +21,7 @@ export default async function extractRecommendedData($) {
           .attr("data-jname")
           .trim();
         const poster = $(element).find(".film-poster img").attr("data-src");
+
         const $fdiItems = $(".film-detail .fd-infor .fdi-item", element);
         const showType = $fdiItems
           .filter((_, item) => {
@@ -43,6 +45,7 @@ export default async function extractRecommendedData($) {
             tvInfo[property] = value;
           }
         });
+
         let adultContent = false;
         const tickRateText = $(".film-poster>.tick-rate", element)
           .text()
@@ -50,6 +53,7 @@ export default async function extractRecommendedData($) {
         if (tickRateText.includes("18+")) {
           adultContent = true;
         }
+
         return {
           data_id,
           id,

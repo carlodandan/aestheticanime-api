@@ -1,17 +1,19 @@
-import axios from "axios";
 import * as cheerio from "cheerio";
 import { v1_base_url } from "../utils/base_v1.js";
 
 export default async function extractQtip(id) {
   try {
-    const { data } = await axios.get(
+    const response = await fetch(
       `https://${v1_base_url}/ajax/movie/qtip/${id}`,
       {
+        method: "GET",
         headers: {
           "x-requested-with": "XMLHttpRequest",
         },
       }
     );
+
+    const data = await response.text();
     const $ = cheerio.load(data);
 
     const title = $(".pre-qtip-title").text();
@@ -40,7 +42,7 @@ export default async function extractQtip(id) {
     });
     const watchLink = $(".pre-qtip-button a.btn.btn-play").attr("href");
 
-    const extractedData = {
+    return {
       title,
       rating,
       quality,
@@ -56,7 +58,6 @@ export default async function extractQtip(id) {
       genres,
       watchLink,
     };
-    return extractedData;
   } catch (error) {
     console.error("Error extracting data:", error);
     return error;

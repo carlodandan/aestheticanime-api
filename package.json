@@ -1,11 +1,12 @@
 {
-  "name": "anime-api",
+  "name": "aesthetic-anime-api",
   "version": "1.0.0",
   "description": "A restful api to provide all information about anime",
-  "main": "./server.js",
+  "main": "./src/worker.js",
   "scripts": {
-    "start": "node ./server.js",
-    "dev": "nodemon server.js",
+    "build-worker": "esbuild src/worker.js --bundle --format=esm --outfile=dist/worker.js",
+    "deploy-worker": "wrangler deploy",
+    "dev-worker": "wrangler dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sayan Das",
@@ -24,7 +25,10 @@
   },
   "type": "module",
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "wrangler": "^3.0.0",
+    "hono": "^4.0.0",
+    "esbuild": "^0.19.0"
   },
   "repository": {
     "type": "git",

@@ -1,4 +1,3 @@
-import axios from "axios";
 import { v3_base_url } from "../utils/base_v3.js";
 
 const DEFAULT_BASE_URL = `https://${v3_base_url}`;
@@ -16,8 +15,8 @@ class AniplayExtractor {
   }
 
   async fetchHtml(url) {
-    const { data } = await axios.get(url);
-    return data;
+    const response = await fetch(url);
+    return await response.text();
   }
 
   async fetchStaticJsUrl() {
@@ -78,12 +77,15 @@ class AniplayExtractor {
     ];
 
     try {
-      const res = await axios.post(url, payload, {
+      const res = await fetch(url, {
+        method: 'POST',
         headers: {
           "Next-Action": nextAction.watch,
+          'Content-Type': 'application/json',
         },
+        body: JSON.stringify(payload),
       });
-      const dataStr = res.data.split("1:")[1];
+      const dataStr = (await res.text()).split("1:")[1];
       return JSON.parse(dataStr);
     } catch (err) {
       throw new Error(`Request failed: ${err.message}`);

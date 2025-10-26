@@ -1,21 +1,26 @@
-import axios from "axios";
 import * as cheerio from "cheerio";
 import formatTitle from "../helper/formatTitle.helper.js";
 import { v1_base_url } from "../utils/base_v1.js";
 import extractRecommendedData from "./recommend.extractor.js";
 import extractRelatedData from "./related.extractor.js";
+import { DEFAULT_HEADERS } from "../configs/header.config.js";
 
 async function extractAnimeInfo(id) {
   try {
     const [resp, characterData] = await Promise.all([
-      axios.get(`https://${v1_base_url}/${id}`),
-      axios.get(
-        `https://${v1_base_url}/ajax/character/list/${id.split("-").pop()}`
-      ),
+      fetch(`https://${v1_base_url}/${id}`, {
+        method: "GET",
+        headers: DEFAULT_HEADERS,
+      }).then((r) => r.text()),
+      fetch(
+        `https://${v1_base_url}/ajax/character/list/${id.split("-").pop()}`,
+        { method: "GET", headers: DEFAULT_HEADERS }
+      ).then((r) => r.text()),
     ]);
-    const characterHtml = characterData.data?.html || "";
-    const $1 = cheerio.load(characterHtml);
-    const $ = cheerio.load(resp.data);
+
+    const $1 = cheerio.load(characterData || "");
+    const $ = cheerio.load(resp || "");
+
     const data_id = id.split("-").pop();
     const titleElement = $("#ani_detail .film-name");
     const showType = $("#ani_detail .prebreadcrumb ol li")
@@ -47,7 +52,9 @@ async function extractAnimeInfo(id) {
 
     const title = titleElement.text().trim();
     const japanese_title = titleElement.attr("data-jname");
-    const synonyms = $('.item.item-title:has(.item-head:contains("Synonyms")) .name').text().trim();
+    const synonyms = $('.item.item-title:has(.item-head:contains("Synonyms")) .name')
+      .text()
+      .trim();
     const poster = posterElement.find("img").attr("src");
     const syncDataScript = $("#syncData").html();
     let anilistId = null;
@@ -111,8 +118,9 @@ async function extractAnimeInfo(id) {
       extractRecommendedData($),
       extractRelatedData($),
     ]);
+
     let charactersVoiceActors = [];
-    if (characterHtml) {
+    if (characterData) {
       charactersVoiceActors = $1(".bac-list-wrap .bac-item")
         .map((index, el) => {
           const character = {
@@ -122,24 +130,20 @@ async function extractAnimeInfo(id) {
                 .attr("href")
                 ?.split("/")[2] || "",
             poster:
-              $1(el).find(".per-info.ltr .pi-avatar img").attr("data-src") ||
-              "",
+              $1(el).find(".per-info.ltr .pi-avatar img").attr("data-src") || "",
             name: $1(el).find(".per-info.ltr .pi-detail a").text(),
             cast: $1(el).find(".per-info.ltr .pi-detail .pi-cast").text(),
           };
 
           let voiceActors = [];
           const rtlVoiceActors = $1(el).find(".per-info.rtl");
-          const xxVoiceActors = $1(el).find(
-            ".per-info.per-info-xx .pix-list .pi-avatar"
-          );
+          const xxVoiceActors = $1(el).find(".per-info.per-info-xx .pix-list .pi-avatar");
           if (rtlVoiceActors.length > 0) {
             voiceActors = rtlVoiceActors
               .map((_, actorEl) => ({
                 id: $1(actorEl).find("a").attr("href")?.split("/").pop() || "",
                 poster: $1(actorEl).find("img").attr("data-src") || "",
-                name:
-                  $1(actorEl).find(".pi-detail .pi-name a").text().trim() || "",
+                name: $1(actorEl).find(".pi-detail .pi-name a").text().trim() || "",
               }))
               .get();
           } else if (xxVoiceActors.length > 0) {

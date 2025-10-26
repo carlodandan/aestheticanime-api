@@ -1,12 +1,12 @@
-import axios from "axios";
 import * as cheerio from "cheerio";
 import formatTitle from "../helper/formatTitle.helper.js";
 import { v1_base_url } from "../utils/base_v1.js";
 
 async function extractSeasons(id) {
   try {
-    const resp = await axios.get(`https://${v1_base_url}/watch/${id}`);
-    const $ = cheerio.load(resp.data);
+    const resp = await fetch(`https://${v1_base_url}/watch/${id}`);
+    const html = await resp.text();
+    const $ = cheerio.load(html);
     const seasons = $(".anis-watch>.other-season>.inner>.os-list>a")
       .map((index, element) => {
         const data_number = index;

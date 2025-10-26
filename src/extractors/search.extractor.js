@@ -1,4 +1,3 @@
-import axios from "axios";
 import * as cheerio from "cheerio";
 import { DEFAULT_HEADERS } from "../configs/header.config.js";
 import { v1_base_url } from "../utils/base_v1.js";
@@ -78,7 +77,7 @@ async function extractSearchResults(params = {}) {
 
     const queryParams = new URLSearchParams(filteredParams).toString();
 
-    const resp = await axios.get(`https://${v1_base_url}/search?${queryParams}`, {
+    const resp = await fetch(`https://${v1_base_url}/search?${queryParams}`, {
       headers: {
         Accept:
           "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -86,8 +85,8 @@ async function extractSearchResults(params = {}) {
         "User-Agent": DEFAULT_HEADERS,
       },
     });
-
-    const $ = cheerio.load(resp.data);
+    const html = await resp.text();
+    const $ = cheerio.load(html);
     const elements = "#main-content .film_list-wrap .flw-item";
 
     const totalPage =

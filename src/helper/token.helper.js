@@ -1,14 +1,14 @@
-import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { v1_base_url } from '../utils/base_v1.js';
 
 export default async function extractToken(url) {
   try {
-    const { data: html } = await axios.get(url, {
+    const response = await fetch(url, {
       headers: {
         Referer: `https://${v1_base_url}/`
       }
     });
+    const html = await response.text();
 
     const $ = cheerio.load(html);
     const results = {};

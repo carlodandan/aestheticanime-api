@@ -1,7 +1,5 @@
 // this is kept as backup in case megacloud's architecture rollback to it's previous architecture
 
-
-// import axios from "axios";
 // import CryptoJS from "crypto-js";
 // import { v2_base_url } from "../../utils/base_v2.js";
 // import fetchScript from "../../helper/fetchScript.helper.js";
@@ -10,16 +8,18 @@
 
 // async function decryptSources_v2(id, name, type) {
 //   try {
-//     const [{ data: sourcesData }, decryptKey_v2] = await Promise.all([
-//       axios.get(`https://${v2_base_url}/ajax/episode/sources?id=${id}`),
+//     const [sourcesResponse, decryptKey_v2] = await Promise.all([
+//       fetch(`https://${v2_base_url}/ajax/episode/sources?id=${id}`),
 //       getKeys(await fetchScript(PLAYER_SCRIPT_URL)),
 //     ]);
+//     const sourcesData = await sourcesResponse.json();
 //     const ajaxResp = sourcesData.link;
 //     const [hostname] = /^(https?:\/\/(?:www\.)?[^\/\?]+)/.exec(ajaxResp) || [];
 //     const [_, sourceId] = /\/([^\/\?]+)\?/.exec(ajaxResp) || [];
-//     const { data: source } = await axios.get(
+//     const sourceResponse = await fetch(
 //       `${hostname}/ajax/embed-6-v2/getSources?id=${sourceId}`
 //     );
+//     const source = await sourceResponse.json();
 
 //     if (source.encrypted === true) {
 //       const sourcesArray = source.sources.split("");

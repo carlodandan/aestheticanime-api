@@ -1,4 +1,3 @@
-import axios from "axios";
 import * as cheerio from "cheerio";
 import { DEFAULT_HEADERS } from "../configs/header.config.js";
 import { v1_base_url } from "../utils/base_v1.js";
@@ -84,7 +83,7 @@ async function extractFilterResults(params = {}) {
       apiUrl = `https://${v1_base_url}/search?${queryParams}`;
     }
 
-    const resp = await axios.get(apiUrl, {
+    const resp = await fetch(apiUrl, {
       headers: {
         Accept:
           "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
@@ -93,8 +92,9 @@ async function extractFilterResults(params = {}) {
         "User-Agent": DEFAULT_HEADERS,
       },
     });
+    const html = await resp.text();
+    const $ = cheerio.load(html);
 
-    const $ = cheerio.load(resp.data);
     const elements = ".flw-item";
     const result = [];
 

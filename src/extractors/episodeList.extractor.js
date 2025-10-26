@@ -1,11 +1,10 @@
-import axios from "axios";
 import * as cheerio from "cheerio";
 import { v1_base_url } from "../utils/base_v1.js";
 
 async function extractEpisodesList(id) {
   try {
     const showId = id.split("-").pop();
-    const response = await axios.get(
+    const response = await fetch(
       `https://${v1_base_url}/ajax/v2/episode/list/${showId}`,
       {
         headers: {
@@ -14,8 +13,9 @@ async function extractEpisodesList(id) {
         },
       }
     );
-    if (!response.data.html) return [];
-    const $ = cheerio.load(response.data.html);
+    const data = await response.json();
+    if (!data.html) return [];
+    const $ = cheerio.load(data.html);
     const res = {
       totalEpisodes: 0,
       episodes: [],

@@ -1,13 +1,13 @@
-import axios from "axios";
 import * as cheerio from "cheerio";
 import { v1_base_url } from "../utils/base_v1.js";
 
 async function getSuggestions(keyword) {
   try {
-    const resp = await axios.get(
+    const resp = await fetch(
       `https://${v1_base_url}/ajax/search/suggest?keyword=${keyword}`
     );
-    const $ = cheerio.load(resp.data.html);
+    const data = await resp.json();
+    const $ = cheerio.load(data.html);
     const results = [];
     $(".nav-item")
       .not(".nav-bottom")

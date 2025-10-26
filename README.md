@@ -1,7 +1,7 @@
 <div align="center">
 
-![Static Badge](https://img.shields.io/badge/node.js-grey?logo=nodedotjs) ![GitHub stars](https://img.shields.io/github/stars/itzzzme/anime-api?logo=github)
-![GitHub forks](https://img.shields.io/github/forks/itzzzme/anime-api?logo=github)
+![Static Badge](https://img.shields.io/badge/node.js-grey?logo=nodedotjs) ![GitHub stars](https://img.shields.io/github/stars/carlodandan/anime-api?logo=github)
+![GitHub forks](https://img.shields.io/github/forks/carlodandan/anime-api?logo=github)
 ![Static Badge](https://img.shields.io/badge/version-1.0.0-blue)
 
 </div>
@@ -31,8 +31,7 @@
 - [Installation](#installation)
   - [Local installation](#local-installation)
 - [Deployment](#deployment)
-  - [Vercel](#Vercel)
-  - [Render](#Render)
+  - [Cloudflare](#Vercel)
 - [Documentation](#documentation)
   - [GET Home Info](#get-home-info)
   - [GET Top 10 Anime's Info](#get-top-10-animes-info)
@@ -66,12 +65,12 @@ Make sure you have node installed on your device
 1. Run the following code to clone the repository and install all required dependencies
 
 ```bash
-$ git clone https://github.com/itzzzme/anime-api.git
-$ cd anime-api
+$ git clone https://github.com/carlodandan/aesthetic-anime-api.git
+$ cd aesthetic-anime-api
 $ npm install
 ```
 
-2. Refer the [.env.example](https://github.com/itzzzme/anime-api/blob/main/.env.example) file to setup `.env` file
+2. Refer the [.env.example](https://github.com/carlodandan/anime-api/blob/main/.env.example) file to setup `.env` file
 
 ```bash
 # Origins you want to allow
@@ -87,17 +86,11 @@ $ npm start #or npm run devStart
 
 > # Deployment
 
-### Vercel
+### Cloudflare (Worker)
 
-Host your own instance of anime-api on vercel
+Host your own instance of Aesthetic Anime API.
 
-[![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/itzzzme/anime-api)
-
-### Render
-
-Host your own instance of anime-api on Render.
-
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/carlodandan/anime-api)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/carlodandan/aesthetic-anime-api)
 
 > # Documentation
 
@@ -1513,4 +1506,4 @@ If you discover any issues or have suggestions for improvement, please open an i
 > If you like the project feel free to drop a star ✨. Your appreciation means a lot.
 
 <p align="center" style="text-decoration: none;">Made by <a href="https://github.com/itzzzme" tarGET="_blank">itzzzme 
-</a>🫰</p>
+</a> and just converted for Cloudflare's Worker by me.</p>

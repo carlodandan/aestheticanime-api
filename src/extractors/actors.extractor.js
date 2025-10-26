@@ -1,11 +1,11 @@
-import axios from "axios";
 import * as cheerio from "cheerio";
 import { v1_base_url } from "../utils/base_v1.js";
 
 export async function extractVoiceActor(id) {
   try {
-    const response = await axios.get(`https://${v1_base_url}/people/${id}`);
-    const $ = cheerio.load(response.data);
+    const response = await fetch(`https://${v1_base_url}/people/${id}`);
+    const html = await response.text();
+    const $ = cheerio.load(html);
 
     // Extract basic information
     const name = $(".apw-detail .name").text().trim();

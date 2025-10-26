@@ -1,4 +1,3 @@
-import axios from "axios";
 import CryptoJS from "crypto-js";
 import * as cheerio from "cheerio";
 import { v1_base_url } from "../../utils/base_v1.js";
@@ -17,7 +16,7 @@ export async function decryptSources_v1(epID, id, name, type, fallback) {
 
       iframeURL = `https://${fallback_server}/stream/s-2/${epID}/${type}`;
 
-      const { data } = await axios.get(
+      const response = await fetch(
         `https://${fallback_server}/stream/s-2/${epID}/${type}`,
         {
           headers: {
@@ -25,10 +24,11 @@ export async function decryptSources_v1(epID, id, name, type, fallback) {
           },
         },
       );
+      const html = await response.text();
       
-      const $ = cheerio.load(data);
+      const $ = cheerio.load(html);
       const dataId = $("#megaplay-player").attr("data-id");
-      const { data: decryptedData } = await axios.get(
+      const decryptedResponse = await fetch(
         `https://${fallback_server}/stream/getSources?id=${dataId}`,
         {
           headers: {
@@ -36,11 +36,12 @@ export async function decryptSources_v1(epID, id, name, type, fallback) {
           },
         },
       );
-      decryptedSources = decryptedData;
+      decryptedSources = await decryptedResponse.json();
     } else {
-      const { data: sourcesData } = await axios.get(
+      const sourcesResponse = await fetch(
         `https://${v4_base_url}/ajax/episode/sources?id=${id}`,
       );
+      const sourcesData = await sourcesResponse.json();
 
       const ajaxLink = sourcesData?.link;
       if (!ajaxLink) throw new Error("Missing link in sourcesData");
@@ -57,10 +58,10 @@ export async function decryptSources_v1(epID, id, name, type, fallback) {
 
       iframeURL = `${baseUrl}/${sourceId}?k=1&autoPlay=0&oa=0&asi=1`;
 
-      const { data: rawSourceData } = await axios.get(
+      const rawSourceResponse = await fetch(
         `${baseUrl}/getSources?id=${sourceId}`,
       );
-      decryptedSources = rawSourceData;
+      decryptedSources = await rawSourceResponse.json();
     }
 
     return {

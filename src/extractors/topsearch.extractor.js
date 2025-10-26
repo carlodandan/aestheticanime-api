@@ -1,11 +1,11 @@
-import axios from "axios";
 import * as cheerio from "cheerio";
 import { v1_base_url } from "../utils/base_v1.js";
 
 async function extractTopSearch() {
   try {
-    const { data } = await axios.get(`https://${v1_base_url}`);
-    const $ = cheerio.load(data);
+    const response = await fetch(`https://${v1_base_url}`);
+    const html = await response.text();
+    const $ = cheerio.load(html);
     const results = [];
     $(".xhashtag a.item").each((_, element) => {
       const title = $(element).text().trim();

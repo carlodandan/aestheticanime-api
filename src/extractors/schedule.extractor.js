@@ -1,13 +1,13 @@
-import axios from "axios";
 import * as cheerio from "cheerio";
 import { v1_base_url } from "../utils/base_v1.js";
 
 export default async function extractSchedule(date) {
   try {
-    const resp = await axios.get(
+    const resp = await fetch(
       `https://${v1_base_url}/ajax/schedule/list?tzOffset=-330&date=${date}`
     );
-    const $ = cheerio.load(resp.data.html);
+    const data = await resp.json();
+    const $ = cheerio.load(data.html);
     const results = [];
     $("li").each((i, element) => {
       const id = $(element)
