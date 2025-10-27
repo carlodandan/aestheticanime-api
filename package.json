@@ -1,5 +1,5 @@
 {
-  "name": "anime-api",
+  "name": "aesthetic-anime-api",
   "version": "1.0.0",
   "description": "A restful api to provide all information about anime",
   "main": "./src/worker.js",
