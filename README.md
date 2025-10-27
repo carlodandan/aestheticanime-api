@@ -14,7 +14,7 @@
 
 <p align="center">
       <img
-        src="./public/luff.gif"
+        src="./public/luffy.gif"
         width="200"
         height="200"
       />
