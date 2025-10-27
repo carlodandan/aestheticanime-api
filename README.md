@@ -31,7 +31,7 @@
 - [Installation](#installation)
   - [Local installation](#local-installation)
 - [Deployment](#deployment)
-  - [Cloudflare](#Cloudflare)
+  - [Cloudflare](#cloudflare-worker)
 - [Documentation](#documentation)
   - [GET Home Info](#get-home-info)
   - [GET Top 10 Anime's Info](#get-top-10-animes-info)
