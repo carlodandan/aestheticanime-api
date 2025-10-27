@@ -4,22 +4,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <title>Anime API</title>
+    <title>Aesthetic Anime API</title>
 
-    <!-- Font Awesome CDN -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
       :root {
-        --bg-color: #1e1e1e;
-        --text-color: #ce9178;
-        --link-color: #7cdcfe;
-        --icon-color: grey;
-        --font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
-          sans-serif;
+        --primary: #7E57C2;
+        --primary-dark: #673AB7;
+        --primary-light: #B39DDB;
+        --secondary: #26A69A;
+        --surface: #121212;
+        --surface-light: #1E1E1E;
+        --surface-lighter: #2D2D2D;
+        --on-surface: #FFFFFF;
+        --on-surface-muted: #B0B0B0;
+        --accent: #FF4081;
+        --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+        --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
+        --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.5);
       }
 
       * {
@@ -32,142 +40,353 @@
       body {
         height: 100%;
         width: 100%;
-        max-height: 100vh;
-        max-width: 100vw;
-        background-color: var(--bg-color);
-        color: var(--text-color);
-        font-family: var(--font-family);
-        overflow: hidden;
+        background-color: var(--surface);
+        color: var(--on-surface);
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        /* REMOVED overflow: hidden to allow scrolling */
+      }
+
+      .background-animation {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+          radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+        animation: float 20s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(1deg); }
       }
 
       .container {
-        display: grid;
-        grid-template-rows: auto 1fr;
-        height: 100%;
-        width: 100%;
-        position: relative;
-        text-align: center;
-      }
-
-      h1 {
-        font-size: 2rem;
-        margin-top: 1rem;
-        z-index: 2;
-      }
-
-      .profile {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        z-index: 2;
-        gap: 1rem;
-      }
-
-      #pic {
-        width: 250px;
-        height: 250px;
-        border-radius: 50%;
-        object-fit: cover;
-        object-position: center;
-        border: 3px solid var(--link-color);
-      }
-
-      .github {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        flex-wrap: wrap;
-        justify-content: center;
-        max-width: 400px;
+        min-height: 100vh; /* Changed from height to min-height */
+        padding: 2rem;
+        position: relative;
         text-align: center;
       }
 
-      .fa-github {
-        color: var(--icon-color);
-        font-size: 36px;
+      .header {
+        margin-bottom: 3rem;
+        z-index: 2;
       }
 
-      a {
+      .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .logo-icon {
+        font-size: 3rem;
+        background: var(--gradient-2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+      }
+
+      h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #fff 0%, var(--primary-light) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        margin-bottom: 1rem;
+      }
+
+      .subtitle {
         font-size: 1.3rem;
-        color: var(--link-color);
+        font-weight: 300;
+        color: var(--on-surface-muted);
+        max-width: 500px;
+        line-height: 1.6;
+      }
+
+      .main-content {
+        background: var(--surface-light);
+        border-radius: 24px;
+        padding: 3rem;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--surface-lighter);
+        backdrop-filter: blur(10px);
+        max-width: 600px;
+        width: 100%;
+        z-index: 2;
+        margin-bottom: 2rem; /* Added margin for spacing when content overflows */
+      }
+
+      .profile-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      .avatar-container {
+        position: relative;
+        margin-bottom: 1rem;
+      }
+
+      .avatar {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+        border: 4px solid transparent;
+        background: var(--gradient-1);
+        padding: 4px;
+        box-shadow: var(--shadow-md);
+        transition: transform 0.3s ease;
+      }
+
+      .avatar:hover {
+        transform: scale(1.05);
+      }
+
+      .message-card {
+        background: var(--surface-lighter);
+        border-radius: 16px;
+        padding: 2rem;
+        border-left: 4px solid var(--accent);
+        text-align: left;
+        margin-bottom: 1.5rem;
+      }
+
+      .message-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .message-icon {
+        color: var(--accent);
+        font-size: 1.5rem;
+      }
+
+      .message-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--on-surface);
+      }
+
+      .message-text {
+        color: var(--on-surface-muted);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+      }
+
+      .github-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: var(--gradient-1);
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .github-link:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
         text-decoration: none;
       }
 
-      a:hover {
-        text-decoration: underline;
+      .github-icon {
+        font-size: 1.5rem;
       }
 
-      .image-container {
+      .decorative-gifs {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         width: 100%;
-        background-size: cover;
-        position: relative;
+        max-width: 800px;
+        margin-top: 2rem;
         z-index: 1;
       }
 
-      #gif,
-      #mirrored-gif {
-        width: 300px;
-        height: 300px;
-        object-fit: contain;
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-top: 2rem;
+        width: 100%;
+        max-width: 500px;
       }
 
-      #mirrored-gif {
-        transform: scaleX(-1);
+      .feature-item {
+        background: var(--surface-lighter);
+        padding: 1rem;
+        border-radius: 12px;
+        text-align: center;
+        border: 1px solid transparent;
+        transition: all 0.3s ease;
       }
 
-      @media (max-width: 700px) {
-        .image-container {
-          display: none;
-        }
+      .feature-item:hover {
+        border-color: var(--primary);
+        transform: translateY(-2px);
+      }
 
-        #pic {
-          width: 180px;
-          height: 180px;
+      .feature-icon {
+        color: var(--primary-light);
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .feature-text {
+        font-size: 0.9rem;
+        color: var(--on-surface-muted);
+        font-weight: 500;
+      }
+
+      /* Added media queries for better mobile scrolling */
+      @media (max-width: 768px) {
+        .container {
+          padding: 1rem;
+          min-height: 100vh;
+          height: auto; /* Allow container to grow with content */
         }
 
         h1 {
-          font-size: 1.5rem;
+          font-size: 2.5rem;
         }
 
-        a {
+        .main-content {
+          padding: 2rem 1.5rem;
+        }
+
+        .avatar {
+          width: 150px;
+          height: 150px;
+        }
+
+        .decorative-gifs {
+          display: none;
+        }
+
+        .features {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .subtitle {
           font-size: 1.1rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 2rem;
+        }
+
+        .logo {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .features {
+          grid-template-columns: 1fr;
+        }
+
+        .github-link {
+          padding: 0.875rem 1.5rem;
+          font-size: 0.9rem;
+        }
+
+        .container {
+          padding: 1rem 0.5rem;
+        }
+      }
+
+      /* Ensure content doesn't get cut off on very small screens */
+      @media (max-height: 700px) {
+        .container {
+          padding: 1rem;
+          min-height: auto;
+          height: auto;
+        }
+        
+        .header {
+          margin-bottom: 1.5rem;
+        }
+        
+        .main-content {
+          margin-bottom: 1rem;
         }
       }
     </style>
   </head>
 
   <body>
-    <div class="container">
-      <h1>Welcome to ANIME API 🎉</h1>
+    <div class="background-animation"></div>
 
-      <div class="profile">
-        <img id="pic" src="image.webp" alt="Profile image" />
-        <div class="github">
-          <i class="fa fa-github" aria-hidden="true"></i>
-          <p>
-            Since you don't have permission to use this specific API instance,
-            host your own.
-          </p>
-          <a
-            href="https://github.com/itzzzme/anime-api"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Click here to host your own!
-          </a>
+    <div class="container">
+      <div class="header">
+        <div class="logo">
+          <h1>Aesthetic Anime API</h1>
         </div>
+        <p class="subtitle">Beautifully designed RESTFul API for anime data and streaming</p>
       </div>
 
-      <div class="image-container">
-        <img id="gif" src="./wlc.gif" alt="Animated welcome GIF" />
-        <img id="mirrored-gif" src="./wlc.gif" alt="Mirrored welcome GIF" />
+      <div class="main-content">
+        <div class="profile-section">
+          <div class="avatar-container">
+            <img class="avatar" src="luffy.gif" alt="Anime character avatar" />
+          </div>
+
+          <div class="message-card">
+            <div class="message-header">
+              <span class="material-icons message-icon">info</span>
+              <h3 class="message-title">Instance Access Required</h3>
+            </div>
+            <p class="message-text">
+              This API instance requires specific permissions. To use the Aesthetic Anime API with your own applications, you'll need to host your own instance.
+            </p>
+            <a
+              href="https://github.com/carlodandan/aestheticanime-api"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="github-link"
+            >
+              <span class="material-icons github-icon">code</span>
+              Host Your Own Instance
+            </a>
+          </div>
+          <div class="message-card">
+            <div class="message-header">
+              <span class="material-icons message-icon">info</span>
+              <h3 class="message-title">Test your own hosted API!</h3>
+            </div>
+            <p class="message-text">
+              In using API Testing Playground (Custom API), it requires allowing all/any origins or allowing https://aestheticanimeapi.webbase.workers.dev as one of your origins. 
+            </p>
+            <a
+              href="./playground.html"
+              class="github-link"
+            >
+              <span class="material-icons github-icon">code</span>
+              API Testing Playground
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </body>

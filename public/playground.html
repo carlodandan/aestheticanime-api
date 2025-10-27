@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aesthetic Anime API</title>
+    <link rel="stylesheet" href="./playground/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <h1>Aesthetic Anime API</h1>
+            </div>
+            <p class="subtitle" id="pageSubtitle">Elegant RESTFul API for anime information & streaming.</p>
+        </div>
+    </header>
+    
+    <!-- Endpoints Page (Hidden by default) -->
+    <div class="container" id="endpointsPage">
+        <div class="section">
+            <div class="section-header">
+                <span class="material-icons">terminal</span>
+                <h2>API Testing Playground</h2>
+            </div>
+            
+            <div class="endpoint-controls">
+                <div class="api-selector">
+                    <label for="apiSelect">Source:</label>
+                    <div class="select-wrapper">
+                        <select id="apiSelect" class="dropdown">
+                        <option value="default">Default API</option>
+                        <option value="custom">Custom API</option>
+                        </select>
+                        <span class="material-icons dropdown-arrow">arrow_drop_down</span>
+                    </div>
+                    <input
+                        type="text"
+                        id="apiInput"
+                        placeholder="Enter custom API base URL"
+                        class="dropdown api-input"
+                        style="display: none; margin-top: 10px;"
+                    />
+                </div>
+              <div class="endpoint-selector">
+                  <label for="endpointDropdown">Select Endpoint:</label>
+                  <div class="select-wrapper">
+                      <select id="endpointDropdown" class="dropdown">
+                          <option value="/api">Home Page</option>
+                          <option value="/api/search?keyword=one%20piece">Search Anime</option>
+                          <option value="/api/info?id=one-piece-100">Anime Info</option>
+                          <option value="/api/stream?id=one-piece-100?ep=2142&server=hd-2&type=sub">Stream Info</option>
+                          <option value="/api/stream/fallback?id=one-piece-100?ep=2142&server=hd-2&type=sub">Stream Info (Fallback)</option>
+                          <option value="/api/servers/one-piece-100?ep=2142&server=hd-2&type=sub">Server List</option>
+                          <option value="/api/episodes/one-piece-100">Episode List</option>
+                          <option value="/api/genre">Browse by Genre</option>
+                          <option value="/api/az-list">Browse by A-Z</option>
+                          <option value="/api/top-ten">Top 10</option>
+                          <option value="/api/top-airing">Top Airing</option>
+                          <option value="/api/most-popular">Most Popular</option>
+                          <option value="/api/most-favorite">Most Favorite</option>
+                          <option value="/api/completed">Completed</option>
+                          <option value="/api/recently-updated">Recently Updated</option>
+                          <option value="/api/recently-added">Recently Added</option>
+                          <option value="/api/top-upcoming">Top Upcoming</option>
+                      </select>
+                      <span class="material-icons dropdown-arrow">arrow_drop_down</span>
+                  </div>
+              </div>
+              
+              <!-- Category Selection (Hidden by default) -->
+              <div class="category-selector" id="categoryContainer" style="display: none;">
+                  <label for="subcategoryDropdown">Select Category:</label>
+                  <div class="select-wrapper">
+                      <select id="subcategoryDropdown" class="dropdown">
+                          <option value="">Select...</option>
+                      </select>
+                      <span class="material-icons dropdown-arrow">arrow_drop_down</span>
+                  </div>
+              </div>
+              
+              <div class="endpoint-display">
+                  <div class="method-badge get">GET</div>
+                  <div class="url-display" id="currentEndpoint">/api</div>
+              </div>
+              
+              <button class="btn primary" id="sendRequest">
+                  <span class="material-icons">send</span>
+                  Send Request
+              </button>
+          </div>
+            
+            <div class="response-section">
+                <div class="response-header">
+                    <span class="material-icons">code</span>
+                    <h3>API Response</h3>
+                </div>
+                <div class="response-container">
+                    <pre id="responseData">Click "Send Request" to see the response</pre>
+                </div>
+            </div>
+            <div class="response-actions">
+                <button class="btn secondary" id="backHomeBtn">
+                    <span class="material-icons">arrow_back</span>
+                    Back to Home
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="disclaimer">
+        <div class="container">
+            <div class="disclaimer-content">
+                <span class="material-icons">warning</span>
+                <div>
+                    <h3>Disclaimer</h3>
+                    <p>This API does not store any files, it only links to media hosted on 3rd party services.</p>
+                    <p>This API is for educational purposes only and not for commercial usage.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-main">
+                    <img src="https://raw.githubusercontent.com/aenime-project/aenime/refs/heads/main/public/luffy.gif" alt="Luffy" class="luffy">
+                    <div class="footer-text">
+                        <p>Anime API by <a href="https://github.com/itzzzme">itzzzme</a> • Adapted for Cloudflare Workers by <a href="https://github.com/carlodandan">carlodandan</a></p>
+                        <p>Experience the API in action at <a href="https://aenime.qzz.io">Aenime</a> streaming platform</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="./playground/categories.js"></script>
+    <script src="./playground/script.js"></script>
+</body>
+</html>

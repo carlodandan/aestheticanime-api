@@ -14,7 +14,7 @@
 
 <p align="center">
       <img
-        src="./public/luffy.gif"
+        src="./public/luff.gif"
         width="200"
         height="200"
       />
@@ -24,7 +24,7 @@
 
 >
 
-<p align="center">RestFul API made with Node.js <br/>(Checkout this anime streaming website  <a href="https://aenime.qzz.io" target="_blank">Aenime.qzz.io</a> powered by this API)</p>
+<p align="center">RestFul API made with Node.js <br/>(Checkout this anime streaming website  <a href="https://aenime.qzz.io" target="_blank">Aenime</a> powered by this API)</p>
 
 > <h2> Table of Contents </h2>
 

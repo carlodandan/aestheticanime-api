@@ -67,6 +67,14 @@ export default {
       }
     });
 
+    // ✅ Global no-cache middleware
+    app.use('/api/*', async (c, next) => {
+      await next();
+      c.header('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+      c.header('Pragma', 'no-cache');
+      c.header('Expires', '0');
+    });
+
     // Helpers
     const createReq = (c) => ({
       query: c.req.query(),
@@ -156,7 +164,7 @@ export default {
     createRoute("/api/actors/:id", getVoiceActors);
     createRoute("/api/character/:id", getCharacter);
     createRoute("/api/top-search", getTopSearch);
-
+    
     // Catch-all 404
     app.get("*", (c) => {
       return c.json({ success: false, message: "Not found" }, 404);
