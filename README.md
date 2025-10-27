@@ -31,7 +31,7 @@
 - [Installation](#installation)
   - [Local installation](#local-installation)
 - [Deployment](#deployment)
-  - [Cloudflare](#Vercel)
+  - [Cloudflare](#Cloudflare)
 - [Documentation](#documentation)
   - [GET Home Info](#get-home-info)
   - [GET Top 10 Anime's Info](#get-top-10-animes-info)
